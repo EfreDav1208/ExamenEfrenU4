@@ -35,15 +35,20 @@ export class TareasComponent implements OnInit {
     }
   }
 
-  onButtonClick(){
+  guardarArreglo(){
     this.listaTarea.push(this.listat);
-    this.listat='';
-    console.log(this.listaTarea);
+    this.listat="";
+   localStorage.setItem('listaTarea',JSON.stringify (this.listaTarea));
+
+  }
+
+  mostrarArreglo(){
+    this.listaTarea=JSON.parse(localStorage.getItem('listaTarea')); 
   }
 
   onButtonEliminar(){
+    localStorage.removeItem('listaTarea')
     this.listaTarea=[];
   }
-
   
 }

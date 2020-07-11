@@ -9,13 +9,13 @@ import{debounceTime} from 'rxjs/operators';
 })
 export class NotasComponent implements OnInit {
   form: FormGroup;
-
-  public tituloNota:Array<string>=[];
-  public titulo:string="";
-
-  public descNota:Array<string>=[];
-  public descrip:string="";
  
+  arregloT:Array<string>=[];
+  titulo: string;
+
+  arregloD:Array<string>=[];
+  Des: string;
+  
  
   constructor(
     private formBuilder:FormBuilder
@@ -40,17 +40,29 @@ export class NotasComponent implements OnInit {
     }
   }
 
-  onButtonClick(){
-    this.tituloNota.push(this.titulo);
-    this.titulo='';
-    console.log(this.tituloNota);
-    this.descNota.push(this.descrip);
-    this.descrip='';
-    console.log(this.descNota);
+  guardarArreglo(){
+    this.arregloT.push(this.titulo);
+    this.titulo="";
+   localStorage.setItem('arregloT',JSON.stringify (this.arregloT));
+
+   this.arregloD.push(this.Des);
+   this.Des="";
+  localStorage.setItem('arregloD',JSON.stringify (this.arregloD));
+
+
+  }
+
+  mostrarArreglo(){
+    this.arregloT=JSON.parse(localStorage.getItem('arregloT')); 
+    this.arregloD=JSON.parse(localStorage.getItem('arregloD')); 
   }
 
 
-
-
+  onButtonEliminar(){
+    localStorage.removeItem('arregloT')
+    localStorage.removeItem('arregloD')
+    this.arregloT=[];
+    this.arregloD=[];
+  }
 
 }
